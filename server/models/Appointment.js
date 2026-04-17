@@ -10,6 +10,7 @@ const appointmentSchema = new mongoose.Schema({
     enum: ['pending', 'approved', 'completed', 'rejected'], 
     default: 'pending' 
   },
+  aiAnalysis: { type: mongoose.Schema.Types.Mixed },
   createdAt: { type: Date, default: Date.now }
 });
 

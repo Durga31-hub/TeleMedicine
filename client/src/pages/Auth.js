@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
+import api from '../utils/api';
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -15,9 +15,9 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    const url = `http://localhost:5000/api/auth/${isLogin ? 'login' : 'register'}`;
     try {
-      const { data } = await axios.post(url, formData);
+      const endpoint = `/auth/${isLogin ? 'login' : 'register'}`;
+      const { data } = await api.post(endpoint, formData);
       login(data.user, data.token);
       navigate(data.user.role === 'doctor' ? '/doctor-dashboard' : '/patient-dashboard');
     } catch (err) {
